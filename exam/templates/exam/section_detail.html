@@ -1,0 +1,94 @@
+{% extends 'exam/base.html' %}
+{% block content %}
+<div class="page-header">
+    <h1><i class="bi bi-folder me-2"></i>{{ section.name }}</h1>
+    {% if section.subtype %}
+    <p class="lead"><span class="badge bg-info">{{ section.subtype }}</span></p>
+    {% endif %}
+</div>
+
+{% if not section.exam.has_two_subsections %}
+{% if section.question_papers.all %}
+<div class="card mb-4">
+    <div class="card-header">
+        <h5 class="mb-0"><i class="bi bi-file-text me-2"></i>Question Papers</h5>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>View</th>
+                        <th>Attempt</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for paper in section.question_papers.all %}
+                        {% if not paper.subsection %}
+                        <tr>
+                            <td class="fw-bold">{{ paper.title }}</td>
+                            <td>
+                                <a href="{% url 'questionpaper_detail' paper.pk %}" class="btn btn-sm btn-primary">
+                                    <i class="bi bi-eye me-1"></i>View Questions
+                                </a>
+                            </td>
+                            <td>
+                                <a href="{% url 'attempt_paper' paper.pk %}" class="btn btn-sm btn-success">
+                                    <i class="bi bi-pencil-square me-1"></i>Attempt
+                                </a>
+                            </td>
+                        </tr>
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="empty-state">
+    <i class="bi bi-inbox"></i>
+    <h3>No Question Papers Available</h3>
+    <p>This section doesn't have any question papers yet.</p>
+</div>
+{% endif %}
+{% endif %}
+
+{% if section.exam.has_two_subsections %}
+<h2 class="section-heading">
+    <i class="bi bi-grid me-2"></i>Subsections
+</h2>
+{% if section.subsections.all %}
+<div class="row g-4">
+    {% for subsection in section.subsections.all %}
+    <div class="col-12 col-md-6 col-lg-4">
+        <div class="card h-100">
+            <div class="card-body d-flex flex-column">
+                <h5 class="card-title fw-bold mb-3">
+                    <i class="bi bi-folder2 me-2"></i>{{ subsection.name }}
+                </h5>
+                <a href="{% url 'subsection_detail' subsection.pk %}" class="btn btn-primary mt-auto">
+                    View Papers <i class="bi bi-arrow-right ms-1"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="empty-state">
+    <i class="bi bi-inbox"></i>
+    <h3>No Subsections Available</h3>
+    <p>This section doesn't have any subsections yet.</p>
+</div>
+{% endif %}
+{% endif %}
+
+<div class="mt-4">
+    <a href="{% url 'exam_detail' section.exam.pk %}" class="back-button">
+        <i class="bi bi-arrow-left"></i>
+        Back to Exam
+    </a>
+</div>
+{% endblock %}

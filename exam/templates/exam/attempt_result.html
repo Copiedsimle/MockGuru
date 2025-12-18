@@ -1,0 +1,93 @@
+{% extends 'exam/base.html' %}
+{% block content %}
+<div class="page-header">
+    <h1><i class="bi bi-trophy me-2"></i>{{ questionpaper.title }} - Result</h1>
+    <p class="lead">Exam Results and Feedback</p>
+</div>
+
+<div class="row g-4 mb-4">
+    <div class="col-md-4">
+        <div class="card border-success">
+            <div class="card-body text-center">
+                <i class="bi bi-check-circle-fill text-success" style="font-size: 3rem;"></i>
+                <h3 class="mt-3 mb-0">{{ score }}</h3>
+                <p class="text-muted mb-0">Total Score</p>
+                <small class="text-muted">out of {{ total }}</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card border-primary">
+            <div class="card-body text-center">
+                <i class="bi bi-check2-circle text-primary" style="font-size: 3rem;"></i>
+                <h3 class="mt-3 mb-0">{{ correct }}</h3>
+                <p class="text-muted mb-0">Correct Answers</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card border-danger">
+            <div class="card-body text-center">
+                <i class="bi bi-x-circle text-danger" style="font-size: 3rem;"></i>
+                <h3 class="mt-3 mb-0">{{ wrong }}</h3>
+                <p class="text-muted mb-0">Wrong Answers</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h2 class="section-heading">
+    <i class="bi bi-list-check me-2"></i>Question-wise Feedback
+</h2>
+
+<div class="card">
+    <div class="card-body">
+        <div class="list-group list-group-flush">
+            {% for d in details %}
+            <div class="list-group-item">
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                    <h6 class="fw-bold mb-0">Question {{ forloop.counter }}</h6>
+                    {% if d.is_correct %}
+                    <span class="badge bg-success">
+                        <i class="bi bi-check me-1"></i>Correct
+                    </span>
+                    {% else %}
+                    <span class="badge bg-danger">
+                        <i class="bi bi-x me-1"></i>Incorrect
+                    </span>
+                    {% endif %}
+                </div>
+                <div class="mb-2">
+                    <strong>Q:</strong> {{ d.question }}
+                </div>
+                <div class="mb-2">
+                    <strong>Your Answer:</strong> 
+                    <span class="badge bg-secondary">{{ d.your_answer|default:"Not answered" }}</span>
+                </div>
+                <div class="mb-2">
+                    <strong>Marks Awarded:</strong> 
+                    <span class="badge {% if d.marks_awarded > 0 %}bg-success{% elif d.marks_awarded < 0 %}bg-danger{% else %}bg-secondary{% endif %}">
+                        {{ d.marks_awarded }}
+                    </span>
+                </div>
+                {% if d.explanation %}
+                <div class="alert alert-info mb-0 mt-2">
+                    <strong><i class="bi bi-lightbulb me-1"></i>Explanation:</strong> {{ d.explanation }}
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div class="mt-4 d-flex gap-3">
+    <a href="{% url 'attempt_paper' questionpaper.pk %}" class="btn btn-primary">
+        <i class="bi bi-arrow-clockwise me-1"></i>Retake Exam
+    </a>
+    <a href="{% if questionpaper.subsection %}{% url 'subsection_detail' questionpaper.subsection.pk %}{% elif questionpaper.section %}{% url 'section_detail' questionpaper.section.pk %}{% else %}{% url 'exam_list' %}{% endif %}" class="back-button">
+        <i class="bi bi-arrow-left"></i>
+        Back
+    </a>
+</div>
+{% endblock %}

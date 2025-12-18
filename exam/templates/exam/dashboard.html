@@ -1,0 +1,106 @@
+{% extends 'exam/base.html' %}
+{% block title %}Dashboard | MockGuru{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <div class="page-header mb-4">
+        <h1>Welcome, {{ user.username }}</h1>
+        <p class="lead">Your performance summary and test history</p>
+    </div>
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-header">Total Tests Taken</div>
+                <div class="card-body">
+                    <h2>{{ metrics.total_tests }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-header">Average Score</div>
+                <div class="card-body">
+                    <h2>{{ metrics.avg_score }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-header">Best Score</div>
+                <div class="card-body">
+                    <h2>{{ metrics.best_score }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-header">Recent Score</div>
+                <div class="card-body">
+                    <h2>{{ metrics.recent_score }}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card mb-4">
+        <div class="card-header">Recent Test Attempts</div>
+        <div class="card-body p-0">
+            <table class="table mb-0">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Exam</th>
+                        <th>Score</th>
+                        <th>Total</th>
+                        <th>Correct</th>
+                        <th>Wrong</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for attempt in recent_attempts %}
+                    <tr>
+                        <td>{{ attempt.date|date:"Y-m-d H:i" }}</td>
+                        <td>{{ attempt.exam }}</td>
+                        <td>{{ attempt.score }}</td>
+                        <td>{{ attempt.total }}</td>
+                        <td>{{ attempt.correct }}</td>
+                        <td>{{ attempt.wrong }}</td>
+                    </tr>
+                {% empty %}
+                    <tr><td colspan="6" class="text-center">No attempts yet.</td></tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">Progress Chart</div>
+        <div class="card-body">
+            <canvas id="progressChart"></canvas>
+        </div>
+    </div>
+</div>
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('progressChart').getContext('2d');
+    const progressChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: chart.labels|safe,
+            datasets: [{
+                label: 'Score',
+                data: chart.scores|safe,
+                borderColor: '#1565c0',
+                backgroundColor: 'rgba(21,101,192,0.1)',
+                fill: true,
+                tension: 0.3
+            }]
+        },
+        options: {
+            scales: {
+                y: { beginAtZero: true }
+            }
+        }
+    });
+</script>
+{% endblock %}
+{% endblock %}
