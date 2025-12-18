@@ -3,12 +3,20 @@ from django.db import models
 
 from django.contrib.auth.models import User
 
+from django.utils.text import slugify
+
 
 class Exam(models.Model):
 	name = models.CharField(max_length=200)
 	description = models.TextField(blank=True)
 	date = models.DateField(null=True, blank=True)
 	has_two_subsections = models.BooleanField(default=False, help_text="Does this exam have two levels of subsections?")
+	slug = models.SlugField(blank=True)
+
+	def save(self, *args, **kwargs):
+		if not self.slug:
+			self.slug = slugify(self.name)
+		super().save(*args, **kwargs)
 
 	def __str__(self):
 		return self.name
@@ -36,6 +44,12 @@ class QuestionPaper(models.Model):
 	content = models.TextField()
 	duration = models.PositiveIntegerField(default=60, help_text="Duration in minutes")
 	created_at = models.DateTimeField(auto_now_add=True)
+	slug = models.SlugField(blank=True)
+
+	def save(self, *args, **kwargs):
+		if not self.slug:
+			self.slug = slugify(self.title)
+		super().save(*args, **kwargs)
 
 	def __str__(self):
 		return self.title

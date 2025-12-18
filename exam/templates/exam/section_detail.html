@@ -29,12 +29,12 @@
                         <tr>
                             <td class="fw-bold">{{ paper.title }}</td>
                             <td>
-                                <a href="{% url 'questionpaper_detail' paper.pk %}" class="btn btn-sm btn-primary">
+                                <a href="{% url 'questionpaper_detail' paper.slug %}" class="btn btn-sm btn-primary">
                                     <i class="bi bi-eye me-1"></i>View Questions
                                 </a>
                             </td>
                             <td>
-                                <a href="{% url 'attempt_paper' paper.pk %}" class="btn btn-sm btn-success">
+                                <a href="{% url 'attempt_paper' paper.slug %}" class="btn btn-sm btn-success">
                                     <i class="bi bi-pencil-square me-1"></i>Attempt
                                 </a>
                             </td>
@@ -86,7 +86,7 @@
 {% endif %}
 
 <div class="mt-4">
-    <a href="{% url 'exam_detail' section.exam.pk %}" class="back-button">
+    <a href="{% url 'exam_detail' section.exam.slug %}" class="back-button">
         <i class="bi bi-arrow-left"></i>
         Back to Exam
     </a>

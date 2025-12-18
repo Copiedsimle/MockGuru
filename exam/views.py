@@ -1,7 +1,7 @@
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 import json
-def attempt_paper(request, pk):
-	paper = get_object_or_404(QuestionPaper, pk=pk)
+def attempt_paper(request, slug):
+	paper = get_object_or_404(QuestionPaper, slug=slug)
 	questions = list(paper.questions.all())
 	if request.method == 'POST':
 		# Process answers and calculate score
@@ -163,8 +163,8 @@ def exam_list(request):
 	exams = Exam.objects.all()
 	return render(request, 'exam/exam_list.html', {'exams': exams})
 
-def exam_detail(request, pk):
-	exam = get_object_or_404(Exam, pk=pk)
+def exam_detail(request, slug):
+	exam = get_object_or_404(Exam, slug=slug)
 	return render(request, 'exam/exam_detail.html', {'exam': exam})
 
 def section_detail(request, pk):
@@ -175,8 +175,8 @@ def subsection_detail(request, pk):
 	subsection = get_object_or_404(Subsection, pk=pk)
 	return render(request, 'exam/subsection_detail.html', {'subsection': subsection})
 
-def questionpaper_detail(request, pk):
-	questionpaper = get_object_or_404(QuestionPaper, pk=pk)
+def questionpaper_detail(request, slug):
+	questionpaper = get_object_or_404(QuestionPaper, slug=slug)
 	return render(request, 'exam/questionpaper_detail.html', {'questionpaper': questionpaper})
 
 
@@ -237,3 +237,12 @@ def dashboard(request):
 		'recent_attempts': recent_attempts,
 		'chart': chart,
 	})
+
+def robots_txt(request):
+    sitemap_url = request.build_absolute_uri('/sitemap.xml')
+    content = f"""User-agent: *
+Disallow: /admin/
+Allow: /
+
+Sitemap: {sitemap_url}"""
+    return HttpResponse(content, content_type="text/plain")

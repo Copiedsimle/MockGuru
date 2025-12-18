@@ -82,7 +82,7 @@
 </div>
 
 <div class="mt-4 d-flex gap-3">
-    <a href="{% url 'attempt_paper' questionpaper.pk %}" class="btn btn-primary">
+    <a href="{% url 'attempt_paper' questionpaper.slug %}" class="btn btn-primary">
         <i class="bi bi-arrow-clockwise me-1"></i>Retake Exam
     </a>
     <a href="{% if questionpaper.subsection %}{% url 'subsection_detail' questionpaper.subsection.pk %}{% elif questionpaper.section %}{% url 'section_detail' questionpaper.section.pk %}{% else %}{% url 'exam_list' %}{% endif %}" class="back-button">

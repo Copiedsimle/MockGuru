@@ -6,7 +6,7 @@
             <h1><i class="bi bi-folder2 me-2"></i>{{ subsection.name }}</h1>
             <p class="lead mb-0">Question Papers</p>
         </div>
-        <a href="{% url 'exam_detail' subsection.section.exam.pk %}" class="back-button">
+        <a href="{% url 'exam_detail' subsection.section.exam.slug %}" class="back-button">
             <i class="bi bi-arrow-left"></i>
             Back to Exam
         </a>
@@ -33,12 +33,12 @@
                     <tr>
                         <td class="fw-bold">{{ questionpaper.title }}</td>
                         <td>
-                            <a href="{% url 'questionpaper_detail' questionpaper.pk %}" class="btn btn-sm btn-primary">
+                            <a href="{% url 'questionpaper_detail' questionpaper.slug %}" class="btn btn-sm btn-primary">
                                 <i class="bi bi-eye me-1"></i>View Questions
                             </a>
                         </td>
                         <td>
-                            <a href="{% url 'attempt_paper' questionpaper.pk %}" class="btn btn-sm btn-success">
+                            <a href="{% url 'attempt_paper' questionpaper.slug %}" class="btn btn-sm btn-success">
                                 <i class="bi bi-pencil-square me-1"></i>Attempt
                             </a>
                         </td>
