@@ -24,6 +24,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path("laila/", admin.site.urls),  # Changed admin URL
     path("", include("exam.urls")),
+    path("blog/", include("blog.urls")),
 ]
 
 # Serve media files in development

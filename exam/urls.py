@@ -1,12 +1,13 @@
 from django.urls import path
 from django.contrib.sitemaps.views import sitemap
 from . import views
-from .sitemaps import ExamSitemap, QuestionPaperSitemap, StaticViewSitemap
+from .sitemaps import ExamSitemap, QuestionPaperSitemap, StaticViewSitemap, BlogSitemap
 
 sitemaps = {
     'exams': ExamSitemap,
     'questionpapers': QuestionPaperSitemap,
     'static': StaticViewSitemap,
+    'blog': BlogSitemap,
 }
 
 urlpatterns = [

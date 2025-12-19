@@ -1,4 +1,7 @@
 {% extends 'exam/base.html' %}
+{% block title %}{{ section.name }} Practice Tests - Free {{ section.exam.name }} Mock Questions | MockGuru{% endblock %}
+{% block meta_description %}Practice {{ section.name }} questions for {{ section.exam.name }} exam. Free online mock tests, question papers, and practice materials. Improve your {{ section.exam.name }} {{ section.name }} scores with MockGuru.{% endblock %}
+
 {% block content %}
 <div class="page-header">
     <h1><i class="bi bi-folder me-2"></i>{{ section.name }}</h1>
@@ -90,5 +93,50 @@
         <i class="bi bi-arrow-left"></i>
         Back to Exam
     </a>
+</div>
+
+<!-- SEO Content -->
+<div class="seo-content mt-5">
+    <h2>Master {{ section.name }} for {{ section.exam.name }} Exam</h2>
+    <p>Excel in {{ section.name }} section of {{ section.exam.name }} with our comprehensive practice materials. Our free online mock tests and question papers are designed to help you build strong foundation in {{ section.name }} concepts.</p>
+
+    <h3>Why Practice {{ section.name }} Questions?</h3>
+    <ul>
+        <li><strong>High Weightage:</strong> {{ section.name }} carries significant marks in {{ section.exam.name }} exam</li>
+        <li><strong>Scoring Potential:</strong> Regular practice can help you score maximum marks</li>
+        <li><strong>Time Management:</strong> Learn to solve questions within stipulated time</li>
+        <li><strong>Concept Clarity:</strong> Strengthen your understanding of {{ section.name }} fundamentals</li>
+    </ul>
+
+    <h3>{{ section.name }} Practice Strategy for {{ section.exam.name }}</h3>
+    <p>Success in {{ section.name }} requires systematic approach and consistent practice. Our platform offers topic-wise questions, mock tests, and detailed solutions to help you master {{ section.name }} concepts effectively.</p>
+
+    <p>Each {{ section.name }} question paper on MockGuru is carefully crafted to match the {{ section.exam.name }} exam pattern. Practice with questions of varying difficulty levels to build confidence and improve accuracy.</p>
+
+    <h3>Free {{ section.name }} Mock Tests Online</h3>
+    <ul>
+        <li>Comprehensive coverage of {{ section.name }} syllabus</li>
+        <li>Questions from all important topics and subtopics</li>
+        <li>Detailed explanations for every question</li>
+        <li>Performance analysis and improvement suggestions</li>
+        <li>Practice at your own pace with flexible timing</li>
+    </ul>
+
+    <h3>{{ section.name }} Preparation Tips</h3>
+    <p>Focus on understanding concepts rather than memorization. Practice regularly with our {{ section.name }} question papers to identify weak areas and work on them systematically. Time yourself while practicing to improve speed and accuracy.</p>
+
+    <p>MockGuru's {{ section.name }} practice tests are completely free and don't require any registration. Start practicing today and boost your {{ section.exam.name }} {{ section.name }} scores.</p>
+
+    <h3>Benefits of {{ section.name }} Online Practice</h3>
+    <ul>
+        <li>Access to unlimited {{ section.name }} practice questions</li>
+        <li>Real-time performance tracking and analysis</li>
+        <li>Learn from detailed step-by-step solutions</li>
+        <li>Practice with {{ section.exam.name }} exam-like interface</li>
+        <li>Improve time management skills</li>
+        <li>Build confidence through regular assessment</li>
+    </ul>
+
+    <p>Whether you're preparing for {{ section.exam.name }} or looking to improve your {{ section.name }} skills, MockGuru provides the best free practice platform. Start your {{ section.name }} preparation journey today!</p>
 </div>
 {% endblock %}

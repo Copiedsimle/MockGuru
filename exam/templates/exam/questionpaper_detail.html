@@ -1,4 +1,7 @@
 {% extends 'exam/base.html' %}
+{% block title %}{{ questionpaper.title }} - Free {{ questionpaper.exam.name }} Practice Test | MockGuru{% endblock %}
+{% block meta_description %}Practice {{ questionpaper.title }} online for free. {{ questionpaper.exam.name }} mock test with detailed solutions. Attempt questions, check answers, and improve your scores with MockGuru.{% endblock %}
+
 {% block content %}
 <div class="page-header">
     <h1><i class="bi bi-file-earmark-text me-2"></i>{{ questionpaper.title }}</h1>
@@ -75,5 +78,57 @@
         <i class="bi bi-arrow-left"></i>
         Back
     </a>
+</div>
+
+<!-- SEO Content -->
+<div class="seo-content mt-5">
+    <h2>Practice {{ questionpaper.title }} - Free {{ questionpaper.exam.name }} Mock Test</h2>
+    <p>Get ready for {{ questionpaper.exam.name }} exam with our comprehensive {{ questionpaper.title }} practice test. This free online mock test includes carefully selected questions to help you assess your preparation level and improve your performance.</p>
+
+    <h3>About {{ questionpaper.title }}</h3>
+    <p>{{ questionpaper.title }} is an important practice paper for {{ questionpaper.exam.name }} aspirants. This question paper covers essential topics and concepts that are frequently tested in the {{ questionpaper.exam.name }} examination.</p>
+
+    {% if questionpaper.section %}
+    <p>This paper belongs to the {{ questionpaper.section.name }} section{% if questionpaper.section.subtype %} ({{ questionpaper.section.subtype }}){% endif %} of {{ questionpaper.exam.name }} exam.</p>
+    {% endif %}
+
+    <h3>Benefits of Attempting {{ questionpaper.title }}</h3>
+    <ul>
+        <li><strong>Exam Pattern Familiarity:</strong> Get used to the {{ questionpaper.exam.name }} question format</li>
+        <li><strong>Time Management:</strong> Practice completing questions within time limits</li>
+        <li><strong>Performance Analysis:</strong> Identify strengths and areas for improvement</li>
+        <li><strong>Confidence Building:</strong> Gain confidence through regular practice</li>
+        <li><strong>Score Improvement:</strong> Track progress and improve your mock test scores</li>
+    </ul>
+
+    <h3>How to Use This Practice Test Effectively</h3>
+    <ol>
+        <li>Read each question carefully and understand what is being asked</li>
+        <li>Attempt the questions within the given time frame</li>
+        <li>Review your answers and learn from mistakes</li>
+        <li>Analyze the detailed solutions provided</li>
+        <li>Practice similar questions to reinforce learning</li>
+    </ol>
+
+    <h3>Free Online Mock Tests for {{ questionpaper.exam.name }}</h3>
+    <p>MockGuru offers completely free {{ questionpaper.exam.name }} mock tests including {{ questionpaper.title }}. Our platform provides:</p>
+    <ul>
+        <li>Unlimited access to practice questions</li>
+        <li>Detailed explanations for all answers</li>
+        <li>Instant result generation</li>
+        <li>Performance analytics and insights</li>
+        <li>Mobile-friendly practice interface</li>
+        <li>No registration or payment required</li>
+    </ul>
+
+    <h3>{{ questionpaper.exam.name }} Preparation Strategy</h3>
+    <p>Regular practice with mock tests like {{ questionpaper.title }} is essential for {{ questionpaper.exam.name }} success. Combine conceptual learning with extensive practice to achieve your target score. MockGuru's free practice platform helps you prepare effectively without any financial burden.</p>
+
+    <p>Start practicing {{ questionpaper.title }} today and take a step closer to your {{ questionpaper.exam.name }} success. Remember, consistent practice and performance analysis are key to achieving excellent results in competitive examinations.</p>
+
+    <h3>Additional Practice Resources</h3>
+    <p>Besides {{ questionpaper.title }}, explore our collection of other {{ questionpaper.exam.name }} practice papers and mock tests. Each paper is designed to challenge you and help you improve your problem-solving skills and time management abilities.</p>
+
+    <p>MockGuru is committed to providing quality education resources to help students prepare for competitive exams. Our free mock test platform has helped thousands of aspirants achieve their goals. Join the community of successful {{ questionpaper.exam.name }} candidates today!</p>
 </div>
 {% endblock %}

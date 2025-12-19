@@ -165,7 +165,8 @@ def exam_list(request):
 
 def exam_detail(request, slug):
 	exam = get_object_or_404(Exam, slug=slug)
-	return render(request, 'exam/exam_detail.html', {'exam': exam})
+	exams = Exam.objects.all()
+	return render(request, 'exam/exam_detail.html', {'exam': exam, 'exam_list': exams})
 
 def section_detail(request, pk):
 	section = get_object_or_404(Section, pk=pk)

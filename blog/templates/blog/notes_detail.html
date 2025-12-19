@@ -1,0 +1,25 @@
+{% extends 'exam/base.html' %}
+{% block title %}{{ note.title }} - Study Notes{% endblock %}
+{% block meta_description %}{{ note.content|truncatewords:30 }}{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>{{ note.title }}</h1>
+    <p class="text-muted">Published on {{ note.published_date|date:"F j, Y" }}</p>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <div class="notes-content">
+            {{ note.content|linebreaks }}
+        </div>
+    </div>
+</div>
+
+<div class="mt-4">
+    <a href="{% url 'notes_list' %}" class="back-button">
+        <i class="bi bi-arrow-left"></i>
+        Back to Notes
+    </a>
+</div>
+{% endblock %}

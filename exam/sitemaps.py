@@ -1,13 +1,14 @@
 from django.contrib.sitemaps import Sitemap
 from django.urls import reverse
 from .models import Exam, QuestionPaper
+from blog.models import BlogPost
 
 class StaticViewSitemap(Sitemap):
     priority = 0.5
     changefreq = 'monthly'
 
     def items(self):
-        return ['exam_list', 'login', 'signup']
+        return ['exam_list', 'login', 'signup', 'blog_list']
 
     def location(self, item):
         return reverse(item)
@@ -31,3 +32,13 @@ class QuestionPaperSitemap(Sitemap):
 
     def lastmod(self, obj):
         return obj.created_at
+
+class BlogSitemap(Sitemap):
+    changefreq = "weekly"
+    priority = 0.7
+
+    def items(self):
+        return BlogPost.objects.filter(is_published=True)
+
+    def lastmod(self, obj):
+        return obj.published_date

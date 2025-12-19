@@ -1,0 +1,37 @@
+{% extends 'exam/base.html' %}
+{% block title %}Study Notes - {{ block.super }}{% endblock %}
+{% block meta_description %}Free study notes for competitive exams. Download comprehensive notes for CAT, GATE, and other competitive examinations.{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1><i class="bi bi-book me-2"></i>Study Notes</h1>
+    <p class="lead">Comprehensive study materials and notes for exam preparation</p>
+</div>
+
+{% if notes %}
+<div class="row g-4">
+    {% for note in notes %}
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title">
+                    <a href="{% url 'notes_detail' note.slug %}" class="text-decoration-none">{{ note.title }}</a>
+                </h2>
+                <p class="card-text text-muted">
+                    <small>Published on {{ note.published_date|date:"F j, Y" }}</small>
+                </p>
+                <p class="card-text">{{ note.content|truncatewords:50 }}</p>
+                <a href="{% url 'notes_detail' note.slug %}" class="btn btn-primary">Read More</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="empty-state">
+    <i class="bi bi-inbox"></i>
+    <h3>No Study Notes Yet</h3>
+    <p>Check back soon for new study materials!</p>
+</div>
+{% endif %}
+{% endblock %}

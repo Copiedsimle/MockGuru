@@ -1,4 +1,7 @@
 {% extends 'exam/base.html' %}
+{% block title %}{{ exam.name }} Mock Tests - Free Online Practice | MockGuru{% endblock %}
+{% block meta_description %}Practice {{ exam.name }} mock tests online for free. Access comprehensive question papers, sections, and practice materials. Prepare effectively with MockGuru's free mock test platform.{% endblock %}
+
 {% block content %}
 <div class="page-header">
     <h1><i class="bi bi-book me-2"></i>{{ exam.name }}</h1>
@@ -43,5 +46,73 @@
         <i class="bi bi-arrow-left"></i>
         Back to Exams
     </a>
+</div>
+
+<!-- Other Exams Section -->
+<div class="other-exams mt-5">
+    <h3>Other Exams You May Like</h3>
+    <div class="row g-3">
+        {% for other_exam in exam_list %}
+            {% if other_exam != exam %}
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ other_exam.name }}</h5>
+                        <p class="card-text">{{ other_exam.description|truncatewords:10 }}</p>
+                        <a href="{% url 'exam_detail' other_exam.slug %}" class="btn btn-outline-primary">View Details</a>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+<!-- SEO Content -->
+<div class="seo-content mt-5">
+    <h2>Prepare for {{ exam.name }} with Free Mock Tests</h2>
+    <p>Welcome to MockGuru's comprehensive {{ exam.name }} preparation platform. Our free online mock tests are designed to help you excel in your {{ exam.name }} examination through systematic practice and performance analysis.</p>
+
+    <h3>Why Choose MockGuru for {{ exam.name }} Practice?</h3>
+    <ul>
+        <li><strong>Free Mock Tests:</strong> Access unlimited practice question papers without any subscription fees</li>
+        <li><strong>Real Exam Experience:</strong> Practice with questions that simulate the actual {{ exam.name }} exam pattern</li>
+        <li><strong>Detailed Solutions:</strong> Get comprehensive explanations for every question</li>
+        <li><strong>Performance Tracking:</strong> Monitor your progress with detailed analytics and score reports</li>
+        <li><strong>Flexible Practice:</strong> Practice at your own pace with our user-friendly interface</li>
+    </ul>
+
+    <h3>{{ exam.name }} Exam Preparation Strategy</h3>
+    <p>Success in {{ exam.name }} requires consistent practice and strategic preparation. Our platform offers section-wise practice materials that help you identify your strengths and weaknesses. Regular mock test practice builds confidence and improves time management skills.</p>
+
+    <p>Each {{ exam.name }} mock test on our platform includes questions from all important topics, ensuring comprehensive coverage of the syllabus. Our question papers are updated regularly to reflect the latest exam patterns and difficulty levels.</p>
+
+    <h3>Key Features of Our {{ exam.name }} Mock Tests</h3>
+    <ul>
+        <li>Questions covering all {{ exam.name }} sections and subsections</li>
+        <li>Accurate difficulty level matching real exams</li>
+        <li>Instant result generation with detailed analysis</li>
+        <li>Question-wise timing and accuracy metrics</li>
+        <li>Comparative performance analysis</li>
+        <li>Mobile-friendly practice interface</li>
+    </ul>
+
+    <h3>Free {{ exam.name }} Practice Tests Online</h3>
+    <p>MockGuru offers completely free {{ exam.name }} mock tests that don't require any registration or payment. You can start practicing immediately and access all our resources without any limitations. Our free mock test platform is designed to provide the best preparation experience for {{ exam.name }} aspirants.</p>
+
+    <p>Whether you're preparing for your first {{ exam.name }} attempt or looking to improve your previous scores, our comprehensive mock test series will help you achieve your goals. Practice regularly, analyze your performance, and track your improvement over time.</p>
+
+    <h3>{{ exam.name }} Online Test Series Benefits</h3>
+    <p>Our {{ exam.name }} online test series provides numerous benefits for serious aspirants:</p>
+    <ul>
+        <li>Practice with {{ exam.name }} questions of varying difficulty levels</li>
+        <li>Learn from detailed explanations and solution approaches</li>
+        <li>Identify and work on weak areas systematically</li>
+        <li>Improve speed and accuracy with timed practice sessions</li>
+        <li>Get familiar with the online exam interface</li>
+        <li>Build confidence through regular assessment</li>
+    </ul>
+
+    <p>Start your {{ exam.name }} preparation journey today with MockGuru's free mock tests. Practice smart, perform better, and achieve your {{ exam.name }} success story.</p>
 </div>
 {% endblock %}
