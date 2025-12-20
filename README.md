@@ -21,31 +21,34 @@ A Django-based mock exam application with blog functionality.
 
 ## Production Deployment on Render
 
-This project is configured for deployment on Render using the `render.yaml` file.
+This project is configured for deployment on Render using a `Procfile`.
 
 ### Deployment Steps
 
 1. Connect your GitHub repository to Render
-2. Create a new Web Service from your repository
-3. Render will automatically use the `render.yaml` configuration
-4. The service will:
-   - Install Python dependencies
-   - Run database migrations
-   - Collect static files
-   - Start the application with Gunicorn
+2. Create a new **Web Service** from your repository
+3. Configure the service with these settings:
+   - **Runtime**: Python 3
+   - **Build Command**: `pip install -r requirements.txt && python3 manage.py collectstatic --noinput && python3 manage.py migrate`
+   - **Start Command**: Will be auto-detected from `Procfile` (`gunicorn mockexam.wsgi:application --bind 0.0.0.0:$PORT`)
+4. Add environment variables:
+   - `DEBUG=false`
+   - `SECRET_KEY` (generate a secure random key)
+   - `ALLOWED_HOSTS` (your Render service URL)
+5. Enable **PostgreSQL** database in the service settings
 
 ### Environment Variables
 
-The following environment variables are automatically set by Render:
+Set these in your Render service:
 
-- `DEBUG`: Set to `false` in production
-- `SECRET_KEY`: Auto-generated secure key
-- `ALLOWED_HOSTS`: Set to the service domain
-- `DATABASE_URL`: PostgreSQL database URL provided by Render
+- `DEBUG=false` (disables debug mode)
+- `SECRET_KEY` (use a long random string)
+- `ALLOWED_HOSTS` (your Render domain, e.g., `yourapp.onrender.com`)
+- `DATABASE_URL` (automatically provided by Render's PostgreSQL)
 
 ### Database
 
-Render provides a PostgreSQL database. The application automatically switches to PostgreSQL in production when `DATABASE_URL` is present.
+Render provides PostgreSQL automatically. The application automatically switches to PostgreSQL in production when `DATABASE_URL` is present.
 
 ### Static Files
 
