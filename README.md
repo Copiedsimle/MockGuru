@@ -9,6 +9,28 @@ A Django-based mock exam application with blog functionality.
 - User authentication
 - Admin interface
 
+## Cloudinary Setup
+
+This project uses Cloudinary for media file storage. To set it up:
+
+1. Create a [Cloudinary account](https://cloudinary.com/)
+2. Get your API credentials from the Cloudinary dashboard
+3. Copy `.env.example` to `.env` and fill in your credentials:
+   ```
+   CLOUDINARY_CLOUD_NAME=your_cloud_name
+   CLOUDINARY_API_KEY=your_api_key
+   CLOUDINARY_API_SECRET=your_api_secret
+   ```
+4. For production deployment, add these as environment variables in your hosting platform
+
+### Testing Cloudinary Setup
+
+Run the test script to verify your configuration:
+
+```bash
+python test_cloudinary.py
+```
+
 ## Local Development
 
 1. Clone the repository
@@ -35,6 +57,9 @@ This project is configured for deployment on Render using a `Procfile`.
    - `DEBUG=false`
    - `SECRET_KEY` (generate a secure random key)
    - `ALLOWED_HOSTS` (your Render service URL)
+   - `CLOUDINARY_CLOUD_NAME` (from Cloudinary dashboard)
+   - `CLOUDINARY_API_KEY` (from Cloudinary dashboard)
+   - `CLOUDINARY_API_SECRET` (from Cloudinary dashboard)
 5. Enable **PostgreSQL** database in the service settings
 
 ### Environment Variables
@@ -45,6 +70,9 @@ Set these in your Render service:
 - `SECRET_KEY` (use a long random string)
 - `ALLOWED_HOSTS` (your Render domain, e.g., `yourapp.onrender.com`)
 - `DATABASE_URL` (automatically provided by Render's PostgreSQL)
+- `CLOUDINARY_CLOUD_NAME` (from Cloudinary dashboard)
+- `CLOUDINARY_API_KEY` (from Cloudinary dashboard)
+- `CLOUDINARY_API_SECRET` (from Cloudinary dashboard)
 
 ### Database
 
