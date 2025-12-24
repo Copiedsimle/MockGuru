@@ -1,0 +1,9 @@
+exam,section,subtype,subsection,paper,question_type,text,marks,negative_marks,option_a,option_b,option_c,option_d,correct_option,correct_answer,explanation,image
+Sample Exam,Mathematics,Objective,,Math Paper 1,mcq_single,What is 2 + 2?,1,0.25,3,4,5,6,B,,The answer is 4.,
+Sample Exam,Mathematics,Objective,,Math Paper 1,mcq_multiple,Which of the following are prime numbers?,2,0.5,2,3,4,6,A,B,,2 and 3 are prime numbers.,
+Sample Exam,Physics,Subjective,,Physics Paper 1,subjective,Explain Newton's first law of motion.,5,0,,,,,,An object at rest stays at rest, and an object in motion stays in motion with the same speed and in the same direction unless acted upon by an unbalanced force.,,
+Sample Exam,Chemistry,Objective,,Chemistry Paper 1,numeric,What is the atomic number of Carbon?,1,0,,,,,,6,,Carbon has 6 protons.,
+Sample Exam,Biology,Objective,,Biology Paper 1,mcq_single,Which organelle is known as the powerhouse of the cell?,1,0.33,Mitochondria,Nucleus,Ribosome,Endoplasmic Reticulum,A,,Mitochondria produce ATP.,
+Sample Exam,Biology,Objective,,Biology Paper 1,mcq_multiple,Which of these are types of RNA?,1,0.25,mRNA,tRNA,rRNA,DNA,A,B,C,,,mRNA, tRNA, and rRNA are types of RNA.,
+Sample Exam,English,Subjective,,English Paper 1,subjective,Write a short paragraph on the importance of education.,10,0,,,,,,Education is crucial for personal and societal development. It equips individuals with knowledge and skills necessary for success in life.,,
+Sample Exam,Computer Science,Objective,,CS Paper 1,numeric,How many bits are in a byte?,0.5,0,,,,,,8,,A byte consists of 8 bits.,

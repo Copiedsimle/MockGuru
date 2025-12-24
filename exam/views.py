@@ -108,6 +108,7 @@ from django.core.files.base import ContentFile
 from .models import TestAttempt
 from django.contrib.auth.decorators import login_required
 from django.db.models import Avg, Max
+from django.db import transaction
 
 def bulk_upload_questions(request):
 	if request.method == 'POST':
@@ -120,40 +121,55 @@ def bulk_upload_questions(request):
 				with zipfile.ZipFile(zip_file) as z:
 					for filename in z.namelist():
 						images[filename] = z.read(filename)
-			decoded_csv = csv_file.read().decode('utf-8').splitlines()
-			reader = csv.DictReader(decoded_csv)
-			for row in reader:
-				# expects: exam, section, subsection, paper, question_type, text, marks, negative_marks, option_a, option_b, option_c, option_d, correct_option, correct_answer, explanation, image
-				exam, _ = Exam.objects.get_or_create(name=row['exam'])
-				section, _ = Section.objects.get_or_create(exam=exam, name=row['section'], subtype=row.get('subtype', ''))
-				subsection = None
-				if row.get('subsection'):
-					subsection, _ = Subsection.objects.get_or_create(section=section, name=row['subsection'])
-				paper, _ = QuestionPaper.objects.get_or_create(
-					exam=exam,
-					section=section,
-					subsection=subsection,
-					title=row['paper']
-				)
-				image_file = None
-				if row.get('image') and row['image'] in images:
-					image_file = ContentFile(images[row['image']], name=row['image'])
-				Question.objects.create(
-					question_paper=paper,
-					question_type=row.get('question_type', ''),
-					text=row.get('text', ''),
-					marks=row.get('marks', 1),
-					negative_marks=row.get('negative_marks', 0),
-					option_a=row.get('option_a', ''),
-					option_b=row.get('option_b', ''),
-					option_c=row.get('option_c', ''),
-					option_d=row.get('option_d', ''),
-					correct_option=row.get('correct_option', ''),
-					correct_answer=row.get('correct_answer', ''),
-					explanation=row.get('explanation', ''),
-					image=image_file
-				)
-			messages.success(request, 'Bulk upload completed!')
+			with transaction.atomic():
+				decoded_csv = csv_file.read().decode('utf-8').splitlines()
+				reader = csv.DictReader(decoded_csv)
+				errors = []
+				success_count = 0
+				for row in reader:
+					try:
+						if not row.get('exam') or not row.get('section') or not row.get('paper') or not row.get('question_type') or not row.get('text'):
+							errors.append(f"Missing required fields in row: {row}")
+							continue
+						exam, _ = Exam.objects.get_or_create(name=row['exam'])
+						section, _ = Section.objects.get_or_create(exam=exam, name=row['section'], subtype=row.get('subtype', ''))
+						subsection = None
+						if row.get('subsection'):
+							subsection, _ = Subsection.objects.get_or_create(section=section, name=row['subsection'])
+						paper, _ = QuestionPaper.objects.get_or_create(
+							exam=exam,
+							section=section,
+							subsection=subsection,
+							title=row['paper']
+						)
+						image_file = None
+						if row.get('image') and row['image'] in images:
+							image_file = ContentFile(images[row['image']], name=row['image'])
+						Question.objects.create(
+							exam=exam,
+							section=section,
+							subsection=subsection,
+							question_paper=paper,
+							question_type=row['question_type'],
+							text=row['text'],
+							marks=row.get('marks', 1),
+							negative_marks=row.get('negative_marks', 0),
+							option_a=row.get('option_a', ''),
+							option_b=row.get('option_b', ''),
+							option_c=row.get('option_c', ''),
+							option_d=row.get('option_d', ''),
+							correct_option=row.get('correct_option', ''),
+							correct_answer=row.get('correct_answer', ''),
+							explanation=row.get('explanation', ''),
+							image=image_file
+						)
+						success_count += 1
+					except Exception as e:
+						errors.append(f"Error in row {row}: {str(e)}")
+				if errors:
+					messages.error(request, f"Bulk upload failed with {len(errors)} errors: {'; '.join(errors[:5])}")
+				else:
+					messages.success(request, f'Bulk upload completed! {success_count} questions added.')
 			return redirect('bulk_upload_questions')
 	else:
 		form = BulkQuestionUploadForm()
